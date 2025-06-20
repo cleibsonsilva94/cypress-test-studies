@@ -1,72 +1,31 @@
+// Comando para rodar: npm run cy:open obs
 // Primeiro exercício feito por mim após ler a documentação
 describe('Central de Atendimento ao Cliente TAT', () => { // Suíte de testes
+
   beforeEach(() => {
     cy.visit('./src/index.html')
   })
+  it('preenche os campos obrigatórios e envia o formulário', () => {
+    cy.get('#firstName').type('Walmyr')
+    cy.get('#lastName').type('Lima e Silva Filho')
+    cy.get('#email').type('walmyr@talkingabouttesting.com')
+    cy.get('#open-text-area').type('Obrigado!')
+    cy.get('button[type="submit"]').click()
 
-  it('verifica o título da aplicação', () => { // Caso de teste sempre definido por "it"
-    cy.title().should('be.equal', 'Central de Atendimento ao Cliente TAT') // O primeiro argumento do "should" é o comando, como "be.equal". Para negar uma asserção, podemos usar "not" antes do comando. :)
+    cy.get('.success')
   })
 
-  it.only('Elogiando', () => {
-    // Digitando o primeiro nome
-    cy.get('input[name="firstName"]')
-      .as('firstNameField')
-      .should('be.visible')
-      .type('Cleibson')
-    cy.get('@firstNameField').should('have.value', 'Cleibson')
+  it.only('preenche os campos obrigatórios e envia o formulário com uma mensagem longa e com atraso.', () => {
+    cy.get('#firstName').type('Walmyr')
+    cy.get('#lastName').type('Lima e Silva Filho')
+    cy.get('#email').type('walmyr@talkingabouttesting.com')
+    cy.get('#open-text-area').type('Digno és, Senhor, de receber glória, e honra, e poder; porque tu criaste todas as coisas, e por tua vontade são e foram criadas', {delay:0})
+    cy.get('button[type="submit"]').click()
 
-    // Digitando o sobrenome
-    cy.get('input[name="lastName"]')
-      .as('lastNameField')
-      .should('be.visible')
-      .type('Lima')
-    cy.get('@lastNameField').should('have.value', 'Lima')
+    cy.get('.success')
 
-    // Digitando o email
-    cy.get('input[id="email"]')
-      .as('emailField')
-      .should('be.visible')
-      .type('cleibson@gmail.com')
-    cy.get('@emailField').should('have.value', 'cleibson@gmail.com')
-
-    // Digitando o telefone
-    cy.get('input[id="phone"]')
-      .as('phonelField')
-      .should('be.visible')
-      .type('93187771')
-    cy.get('@phonelField').should('have.value', '93187771')
-
-    // Clicando na opção de elogio e escolhendo ser contatado por telefone
-    cy.get('input[value="elogio"]').click()
-
-    // Digitando a mensagem de elogio
-    cy.get('textarea[id="open-text-area"]')
-      .as('elogiolField')
-      .should('be.visible')
-      .type('Botafogo venceu')
-    cy.get('@elogiolField').should('have.value', 'Botafogo venceu')
-
-    // Enviando o formulário
-    cy.get('button[type="submit"]').click().should('have.value', 'Mensagem enviada com sucesso.')
   })
 })
-
-it('verifica o título da aplicação', () => {
-  cy.title().should('be.equal', 'Central de Atendimento ao Cliente TAT')
-})
-
-//Codigo do professor
-/*
-it.only('preenche os campos obrigatórios e envia o formulário', () => {
-  cy.get('#firstName').type('Walmyr')
-  cy.get('#lastName').type('Lima e Silva Filho')
-  cy.get('#email').type('walmyr@talkingabouttesting.com')
-  cy.get('#open-text-area').type('Obrigado!')
-  cy.get('button[type="submit"]').click()
-
-  cy.get('.success')
-})/*
 
 /*
 before(() => {...})
