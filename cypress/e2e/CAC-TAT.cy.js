@@ -1,14 +1,14 @@
 // Primeiro exercício feito por mim após ler a documentação
-beforeEach(() => {
-  cy.visit('./src/index.html')
-})
-
 describe('Central de Atendimento ao Cliente TAT', () => { // Suíte de testes
+  beforeEach(() => {
+    cy.visit('./src/index.html')
+  })
+
   it('verifica o título da aplicação', () => { // Caso de teste sempre definido por "it"
     cy.title().should('be.equal', 'Central de Atendimento ao Cliente TAT') // O primeiro argumento do "should" é o comando, como "be.equal". Para negar uma asserção, podemos usar "not" antes do comando. :)
   })
 
-  it('Elogiando', () => {
+  it.only('Elogiando', () => {
     // Digitando o primeiro nome
     cy.get('input[name="firstName"]')
       .as('firstNameField')
@@ -51,6 +51,22 @@ describe('Central de Atendimento ao Cliente TAT', () => { // Suíte de testes
     cy.get('button[type="submit"]').click().should('have.value', 'Mensagem enviada com sucesso.')
   })
 })
+
+it('verifica o título da aplicação', () => {
+  cy.title().should('be.equal', 'Central de Atendimento ao Cliente TAT')
+})
+
+//Codigo do professor
+/*
+it.only('preenche os campos obrigatórios e envia o formulário', () => {
+  cy.get('#firstName').type('Walmyr')
+  cy.get('#lastName').type('Lima e Silva Filho')
+  cy.get('#email').type('walmyr@talkingabouttesting.com')
+  cy.get('#open-text-area').type('Obrigado!')
+  cy.get('button[type="submit"]').click()
+
+  cy.get('.success')
+})/*
 
 /*
 before(() => {...})
