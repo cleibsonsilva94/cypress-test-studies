@@ -15,7 +15,7 @@ describe('Central de Atendimento ao Cliente TAT', () => { // Suíte de testes
     cy.get('.success')
   })
 
-  it.only('preenche os campos obrigatórios e envia o formulário com uma mensagem longa e com atraso.', () => {
+  it('Escrevendo uma mensagem de feedback com muitos caracteres para testar o delay.', () => {
     cy.get('#firstName').type('Walmyr')
     cy.get('#lastName').type('Lima e Silva Filho')
     cy.get('#email').type('walmyr@talkingabouttesting.com')

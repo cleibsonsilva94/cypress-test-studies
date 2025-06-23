@@ -1,4 +1,9 @@
-it('preenche os campos obrigatórios e envia o formulário', () => {
+describe('Central de Atendimento ao Cliente TAT', () => {
+  beforeEach(() => {
+    cy.visit('./src/index.html')
+  })
+
+  it('CT 001 preenche os campos obrigatórios e envia o formulário', () => {
     // Digitando o primeiro nome
     cy.get('input[name="firstName"]')
       .as('firstNameField')
@@ -41,4 +46,25 @@ it('preenche os campos obrigatórios e envia o formulário', () => {
     cy.get('.success')
   })
 
-  
+  it('CT 002 Escrevendo uma mensagem de feedback com muitos caracteres para testar o delay.', () => {
+    cy.get('#firstName').type('Walmyr')
+    cy.get('#lastName').type('Lima e Silva Filho')
+    cy.get('#email').type('walmyr@talkingabouttesting.com')
+    cy.get('#open-text-area').type('Digno és, Senhor, de receber glória, e honra, e poder; porque tu criaste todas as coisas, e por tua vontade são e foram criadas', { delay: 0 })
+    cy.get('button[type="submit"]').click()
+
+    cy.get('.success')
+
+  })
+
+  it.only('CT 003 Exibe mensagem de erro ao submeter o formulário com um email com formatação inválida.', () => {
+    cy.get('#firstName').type('Walmyr')
+    cy.get('#lastName').type('Lima e Silva Filho')
+    cy.get('#email').type('walmyr.talkingabouttesting')
+    cy.get('#open-text-area').type('Digno és, Senhor, de receber glória, e honra, e poder; porque tu criaste todas as coisas, e por tua vontade são e foram criadas', { delay: 0 })
+    cy.get('button[type="submit"]').click()
+
+    cy.get('.error')
+
+  })
+})
