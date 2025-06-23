@@ -4,43 +4,37 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
   })
 
   it('CT 001 preenche os campos obrigatórios e envia o formulário', () => {
-    // Digitando o primeiro nome
     cy.get('input[name="firstName"]')
       .as('firstNameField')
       .should('be.visible')
       .type('Cleibson')
     cy.get('@firstNameField').should('have.value', 'Cleibson')
 
-    // Digitando o sobrenome
     cy.get('input[name="lastName"]')
       .as('lastNameField')
       .should('be.visible')
       .type('Lima')
     cy.get('@lastNameField').should('have.value', 'Lima')
 
-    // Digitando o email
     cy.get('input[id="email"]')
       .as('emailField')
       .should('be.visible')
       .type('cleibson@gmail.com')
     cy.get('@emailField').should('have.value', 'cleibson@gmail.com')
 
-    // Digitando o telefone
     cy.get('input[id="phone"]')
       .as('phonelField')
       .should('be.visible')
       .type('93187771')
     cy.get('@phonelField').should('have.value', '93187771')
 
-    // Clicando na opção de elogio e escolhendo ser contatado por telefone
     cy.get('input[value="elogio"]').click()
 
-    // Digitando a mensagem de elogio
     cy.get('textarea[id="open-text-area"]')
       .as('elogiolField')
       .should('be.visible')
       .type('Botafogo venceu')
-    cy.get('@elogiolField').should('have.value', 'Botafogo venceu')
+    cy.get('@elogiolField').should('have.value', 'Obrigado')
     cy.get('.button').click()
 
     cy.get('.success')
@@ -55,16 +49,26 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
     cy.get('.success')
   })
 
-  it('CT003 Exibe mensagem de erro ao submeter o formulário com um email com formatação inválida.', () => {
+  it('CT003 Escrevendo uma mensagem de feedback com muitos caracteres para testar o delay.', () => {
     cy.get('#firstName').type('Walmyr')
     cy.get('#lastName').type('Lima e Silva Filho')
-    cy.get('#email').type('walmyr.talkingabouttesting')
+    cy.get('#email').type('walmyr@talkingabouttesting.com')
     cy.get('#open-text-area').type('Digno és, Senhor, de receber glória, e honra, e poder; porque tu criaste todas as coisas, e por tua vontade são e foram criadas', { delay: 0 })
     cy.get('button[type="submit"]').click()
 
-    cy.get('.error')
+    cy.get('.success')
   })
-  it('CT004 Exibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido antes do envio do formulário"', () => {
+
+  it.only('CT004 Teste que usa o contains para preencher campos.', () => {
+    cy.contains('label', 'Nome').type('Walmyr')
+    cy.contains('label', 'Sobrenome ').type('Lima e Silva Filho')
+    cy.contains('label', 'E-mail').type('walmyrtalkingabouttesting.com')
+    cy.contains('label', 'Algum elogio ou feedback para nós?').type('Digno és, Senhor, de receber glória, e honra, e poder; porque tu criaste todas as coisas, e por tua vontade são e foram criadas', { delay: 0 })
+    cy.contains('button', 'Enviar').click()
+
+    cy.get('.success')
+  })
+  it('CT005 Exibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido antes do envio do formulário"', () => {
     cy.get('#firstName').type('Walmyr')
     cy.get('#lastName').type('Lima e Silva Filho')
     cy.get('#email').type('walmyr@talkingabouttesting.com')
@@ -73,11 +77,11 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
 
     cy.get('.error')
   })
-  it.only('CT005 Verifica se os campos do formulário são apagados corretamente.', () => {
+  it('CT006 Teste que verifica a impossibilidade de enviar o formulário sem preencher nada.', () => {
     cy.get('button[type="submit"]').click()
     cy.get('.error')
   })
-  it('CT006 Validação do campo "telefone": inserção de strings em vez de números"', () => {
+  it('CT007 Validação do campo "telefone": inserção de strings em vez de números"', () => {
     cy.get('#firstName').type('Walmyr')
     cy.get('#lastName').type('Lima e Silva Filho')
     cy.get('#email').type('walmyr@talkingabouttesting.com')
@@ -85,7 +89,7 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
 
     cy.get('input').should('not.have.value', 'abc')
   })
-  it('CT007 Verifica se os campos do formulário são apagados corretamente.', () => {
+  it('CT008 Verifica se os campos do formulário são apagados corretamente.', () => {
     cy.get('#firstName').type('WA').should('have.value', 'WA').clear().should('not.have.value', 'WA').type('Walmyr').should('have.value', 'Walmyr')
     cy.get('#lastName').type('lima e silva filho').should('have.value', 'lima e silva filho').clear().should('not.have.value', 'lima e silva filho').type('Lima e Silva Filho').should('have.value', 'Lima e Silva Filho')
     cy.get('#email').type('WALMYE@talkingabouttesting.com').should('have.value', 'WALMYE@talkingabouttesting.com').clear().should('not.have.value', 'WALMYE@talkingabouttesting.com').type('walmye@talkingabouttesting.com').should('have.value', 'walmye@talkingabouttesting.com')
