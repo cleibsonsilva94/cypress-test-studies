@@ -57,7 +57,7 @@ describe('Central de Atendimento ao Cliente TAT', () => {
 
   })
 
-  it.only('CT 003 Exibe mensagem de erro ao submeter o formulário com um email com formatação inválida.', () => {
+  it('CT 003 Exibe mensagem de erro ao submeter o formulário com um email com formatação inválida.', () => {
     cy.get('#firstName').type('Walmyr')
     cy.get('#lastName').type('Lima e Silva Filho')
     cy.get('#email').type('walmyr.talkingabouttesting')
@@ -65,6 +65,12 @@ describe('Central de Atendimento ao Cliente TAT', () => {
     cy.get('button[type="submit"]').click()
 
     cy.get('.error')
-
+  })
+  it.only('Validação do campo "telefone": inserção de strings em vez de números"', () => {
+    cy.get('#firstName').type('Walmyr')
+    cy.get('#lastName').type('Lima e Silva Filho')
+    cy.get('#email').type('walmyr@talkingabouttesting.com')
+    cy.get('#phone').type('abc')
+    cy.get('input').should('not.have.value', 'abc')
   })
 })
