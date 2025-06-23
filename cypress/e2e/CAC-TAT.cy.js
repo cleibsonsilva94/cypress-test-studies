@@ -25,6 +25,20 @@ describe('Central de Atendimento ao Cliente TAT', () => { // Suíte de testes
     cy.get('.success')
 
   })
+
+  // Código do professor para CT003
+it.only('preenche os campos obrigatórios e envia o formulário', () => {
+  const longText = Cypress._.repeat('abcdefghijklmnopqrstuvwxyz', 10) // Função que repete um texto várias vezes. É praticamente a única diferença entre meu teste e o do professor.
+
+  cy.get('#firstName').type('Walmyr')
+  cy.get('#lastName').type('Lima e Silva Filho')
+  cy.get('#email').type('walmyr@talkingabouttesting.com')
+  cy.get('#open-text-area').type(longText, { delay: 0 })
+  cy.get('button[type="submit"]').click()
+
+  cy.get('.success').should('be.visible') // Também é diferente: verifica se o elemento está visível.
+})
+
 })
 
 
