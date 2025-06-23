@@ -73,7 +73,11 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
 
     cy.get('.error')
   })
-  it('CT005 Validação do campo "telefone": inserção de strings em vez de números"', () => {
+  it.only('CT005 Verifica se os campos do formulário são apagados corretamente.', () => {
+    cy.get('button[type="submit"]').click()
+    cy.get('.error')
+  })
+  it('CT006 Validação do campo "telefone": inserção de strings em vez de números"', () => {
     cy.get('#firstName').type('Walmyr')
     cy.get('#lastName').type('Lima e Silva Filho')
     cy.get('#email').type('walmyr@talkingabouttesting.com')
@@ -81,7 +85,7 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
 
     cy.get('input').should('not.have.value', 'abc')
   })
-  it.only('CT006 Verifica se os campos do formulário são apagados corretamente.', () => {
+  it('CT007 Verifica se os campos do formulário são apagados corretamente.', () => {
     cy.get('#firstName').type('WA').should('have.value', 'WA').clear().should('not.have.value', 'WA').type('Walmyr').should('have.value', 'Walmyr')
     cy.get('#lastName').type('lima e silva filho').should('have.value', 'lima e silva filho').clear().should('not.have.value', 'lima e silva filho').type('Lima e Silva Filho').should('have.value', 'Lima e Silva Filho')
     cy.get('#email').type('WALMYE@talkingabouttesting.com').should('have.value', 'WALMYE@talkingabouttesting.com').clear().should('not.have.value', 'WALMYE@talkingabouttesting.com').type('walmye@talkingabouttesting.com').should('have.value', 'walmye@talkingabouttesting.com')
