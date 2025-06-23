@@ -1,4 +1,4 @@
-describe('Central de Atendimento ao Cliente TAT', () => {
+describe('CT001 Central de Atendimento ao Cliente TAT', () => {
   beforeEach(() => {
     cy.visit('./src/index.html')
   })
@@ -45,8 +45,7 @@ describe('Central de Atendimento ao Cliente TAT', () => {
 
     cy.get('.success')
   })
-
-  it('CT 002 Escrevendo uma mensagem de feedback com muitos caracteres para testar o delay.', () => {
+  it('CT002 Escrevendo uma mensagem de feedback com muitos caracteres para testar o delay.', () => {
     cy.get('#firstName').type('Walmyr')
     cy.get('#lastName').type('Lima e Silva Filho')
     cy.get('#email').type('walmyr@talkingabouttesting.com')
@@ -54,10 +53,9 @@ describe('Central de Atendimento ao Cliente TAT', () => {
     cy.get('button[type="submit"]').click()
 
     cy.get('.success')
-
   })
 
-  it('CT 003 Exibe mensagem de erro ao submeter o formulário com um email com formatação inválida.', () => {
+  it('CT003 Exibe mensagem de erro ao submeter o formulário com um email com formatação inválida.', () => {
     cy.get('#firstName').type('Walmyr')
     cy.get('#lastName').type('Lima e Silva Filho')
     cy.get('#email').type('walmyr.talkingabouttesting')
@@ -66,11 +64,22 @@ describe('Central de Atendimento ao Cliente TAT', () => {
 
     cy.get('.error')
   })
-  it.only('Validação do campo "telefone": inserção de strings em vez de números"', () => {
+  it.only('CT004 Exibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido antes do envio do formulário"', () => {
+    cy.get('#firstName').type('Walmyr')
+    cy.get('#lastName').type('Lima e Silva Filho')
+    cy.get('#email').type('walmyr@talkingabouttesting.com')
+    cy.get('#phone-checkbox').click()
+    cy.get('button[type="submit"]').click()
+  
+    cy.get('.error')
+  })
+  it('CT005 Validação do campo "telefone": inserção de strings em vez de números"', () => {
     cy.get('#firstName').type('Walmyr')
     cy.get('#lastName').type('Lima e Silva Filho')
     cy.get('#email').type('walmyr@talkingabouttesting.com')
     cy.get('#phone').type('abc')
+
     cy.get('input').should('not.have.value', 'abc')
   })
+
 })
