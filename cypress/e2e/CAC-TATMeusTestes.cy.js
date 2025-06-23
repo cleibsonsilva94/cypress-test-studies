@@ -62,11 +62,11 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
   it.only('CT004 Teste que usa o contains para preencher campos.', () => {
     cy.contains('label', 'Nome').type('Walmyr')
     cy.contains('label', 'Sobrenome ').type('Lima e Silva Filho')
-    cy.contains('label', 'E-mail').type('walmyrtalkingabouttesting.com')
+    cy.contains('label', 'E-mail').type('walmyr@talkingabouttesting.com')
     cy.contains('label', 'Algum elogio ou feedback para nós?').type('Digno és, Senhor, de receber glória, e honra, e poder; porque tu criaste todas as coisas, e por tua vontade são e foram criadas', { delay: 0 })
     cy.contains('button', 'Enviar').click()
 
-    cy.get('.success')
+    cy.get('.success').should('be.visible')
   })
   it('CT005 Exibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido antes do envio do formulário"', () => {
     cy.get('#firstName').type('Walmyr')
@@ -75,11 +75,12 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
     cy.get('#phone-checkbox').click()
     cy.get('button[type="submit"]').click()
 
-    cy.get('.error')
+    cy.get('.error').should('be.visible') 
   })
   it('CT006 Teste que verifica a impossibilidade de enviar o formulário sem preencher nada.', () => {
     cy.get('button[type="submit"]').click()
-    cy.get('.error')
+
+    cy.get('.error').should('be.visible')
   })
   it('CT007 Validação do campo "telefone": inserção de strings em vez de números"', () => {
     cy.get('#firstName').type('Walmyr')
