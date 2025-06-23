@@ -70,7 +70,7 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
     cy.get('#email').type('walmyr@talkingabouttesting.com')
     cy.get('#phone-checkbox').click()
     cy.get('button[type="submit"]').click()
-  
+
     cy.get('.error')
   })
   it('CT005 Validação do campo "telefone": inserção de strings em vez de números"', () => {
@@ -90,3 +90,59 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
   })
 
 })
+
+
+/*
+Sugestão de outra abordagem para o CT006: basicamente, separar as interações por campo para melhorar a legibilidade.
+it.only('CT006 - Verifica se os campos do formulário podem ser apagados e reescritos.', () => {
+  // Primeiro Nome
+  cy.get('#firstName')
+    .type('WA')
+    .should('have.value', 'WA')
+    .clear()
+    .should('have.value', '') // mais direto
+    .type('Walmyr')
+    .should('have.value', 'Walmyr')
+
+  // Sobrenome
+  cy.get('#lastName')
+    .type('lima e silva filho')
+    .should('have.value', 'lima e silva filho')
+    .clear()
+    .should('have.value', '')
+    .type('Lima e Silva Filho')
+    .should('have.value', 'Lima e Silva Filho')
+
+  // E-mail
+  cy.get('#email')
+    .type('WALMYE@talkingabouttesting.com')
+    .should('have.value', 'WALMYE@talkingabouttesting.com')
+    .clear()
+    .should('have.value', '')
+    .type('walmye@talkingabouttesting.com')
+    .should('have.value', 'walmye@talkingabouttesting.com')
+
+  // Telefone
+  cy.get('#phone')
+    .type('123456789')
+    .should('have.value', '123456789')
+    .clear()
+    .should('have.value', '')
+    .type('897654321')
+    .should('have.value', '897654321')
+
+Uma boa prática também é usar uma função para isso e deixá-la na mesma classe ou em um arquivo separado, dependendo da organização do proj
+    
+})
+
+export function preencherApagarPreencher(selector, valor1, valor2) {
+  cy.get(selector)
+    .type(valor1)
+    .should('have.value', valor1)
+    .clear()
+    .should('have.value', '')
+    .type(valor2)
+    .should('have.value', valor2)
+}
+
+*/
