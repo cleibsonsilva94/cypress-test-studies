@@ -50,7 +50,7 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
     cy.get('.success')
   })
 
-  it.only('CT003 Teste que usa o contains para preencher campos.', () => {
+  it('CT003 Teste que usa o contains para preencher campos.', () => {
     cy.contains('label', 'Nome').type('Walmyr')
     cy.contains('label', 'Sobrenome ').type('Lima e Silva Filho')
     cy.contains('label', 'E-mail').type('walmyr@talkingabouttesting.com')
@@ -66,7 +66,7 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
     cy.get('#phone-checkbox').click()
     cy.get('button[type="submit"]').click()
 
-    cy.get('.error').should('be.visible') 
+    cy.get('.error').should('be.visible')
   })
   it('CT005 Teste que verifica a impossibilidade de enviar o formulário sem preencher nada.', () => {
     cy.get('button[type="submit"]').click()
@@ -75,18 +75,18 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
   })
   it('CT006 Validação do campo "telefone": inserção de strings em vez de números"', () => {
     cy.get('#phone')
-    .type('abc')
+      .type('abc')
 
     cy.get('input').should('not.have.value', 'abc')
   })
   it('CT007 Verifica se os campos do formulário são apagados corretamente.', () => {
     cy.get('#firstName')
-    .type('WA')
-    .should('have.value', 'WA')
-    .clear()
-    .should('not.have.value', 'WA')
-    .type('Walmyr')
-    .should('have.value', 'Walmyr')
+      .type('WA')
+      .should('have.value', 'WA')
+      .clear()
+      .should('not.have.value', 'WA')
+      .type('Walmyr')
+      .should('have.value', 'Walmyr')
 
     cy.get('#lastName').type('lima e silva filho').should('have.value', 'lima e silva filho').clear().should('not.have.value', 'lima e silva filho').type('Lima e Silva Filho').should('have.value', 'Lima e Silva Filho')
     cy.get('#email').type('WALMYE@talkingabouttesting.com').should('have.value', 'WALMYE@talkingabouttesting.com').clear().should('not.have.value', 'WALMYE@talkingabouttesting.com').type('walmye@talkingabouttesting.com').should('have.value', 'walmye@talkingabouttesting.com')
@@ -94,8 +94,16 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
 
   })
 
+  // A aplicação de comandos customizados no Cypress é semelhante ao padrão PageObject.
+  // A principal diferença é que não há necessidade de importar manualmente as classes com os métodos
+  // específicos de cada página em todos os arquivos de teste. 
+  // Ao criar um comando customizado, ele é automaticamente incluído no objeto `cy`.
+  // Basta referenciar o arquivo que contém os comandos dentro do `e2e.js` no momento da criação.
+  // A ideia e o princípio são os mesmos do PageObject, porém com a vantagem de deixar o código mais limpo.
+  it.only('fills the form', () => {
+    cy.fillSignupForm()
+  })
 })
-
 
 /*
 Sugestão de outra abordagem para o CT006: basicamente, separar as interações por campo para melhorar a legibilidade.
