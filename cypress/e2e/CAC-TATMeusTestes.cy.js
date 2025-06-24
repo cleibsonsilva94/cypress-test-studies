@@ -116,9 +116,17 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
       .should('have.value', '897654321')
   })
 
-  it('CT008 - Preenche o formulário com comando customizado', () => {
-    cy.fillInAllFieldsAndSendTheForm()
+  it.only('CT008 - Preenche o formulário com comando customizado', () => {
+    const data = {
+      fistName: "Ana",
+      lastName: "Silva",
+      email: "cle@12teste.com",
+      text: "Teste test"
+    }
+
+    cy.fillInAllFieldsAndSendTheForm(data)
   })
+
 })
 
 /* ===================================
@@ -127,7 +135,7 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
 
 // A aplicação de comandos customizados no Cypress é semelhante ao padrão PageObject.
 // A principal diferença é que não há necessidade de importar manualmente as classes com os métodos
-// específicos de cada página em todos os arquivos de teste. 
+// específicos de cada página em todos os arquivos de teste.
 // Ao criar um comando customizado, ele é automaticamente incluído no objeto `cy`.
 // Basta referenciar o arquivo que contém os comandos dentro do `e2e.js` no momento da criação.
 // A ideia e o princípio são os mesmos do PageObject, porém com a vantagem de deixar o código mais limpo.

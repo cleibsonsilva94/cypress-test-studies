@@ -24,6 +24,20 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
+
+/* ===================================
+   Comandos customizados — formas
+====================================== */
+
+Cypress.Commands.add('fillInAllFieldsAndSendTheForm' , data => {
+  cy.contains('label', 'Nome').type(data.fistName)
+  cy.contains('label', 'Sobrenome ').type(data.lastName)
+  cy.contains('label', 'E-mail').type(data.email)
+  cy.contains('label', 'Algum elogio ou feedback para nós?').type(data.text, { delay: 0 })
+  cy.contains('button', 'Enviar').click()
+  })
+
+/*
 Cypress.Commands.add('fillInAllFieldsAndSendTheForm', () => {
   cy.contains('label', 'Nome').type('Walmyr')
   cy.contains('label', 'Sobrenome ').type('Lima e Silva Filho')
@@ -31,3 +45,4 @@ Cypress.Commands.add('fillInAllFieldsAndSendTheForm', () => {
   cy.contains('label', 'Algum elogio ou feedback para nós?').type('Test test test test test', { delay: 0 })
   cy.contains('button', 'Enviar').click()
   })
+  */
