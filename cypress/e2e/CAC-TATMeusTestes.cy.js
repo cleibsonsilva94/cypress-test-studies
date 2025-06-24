@@ -83,10 +83,8 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
     cy.get('.error').should('be.visible')
   })
   it('CT007 Validação do campo "telefone": inserção de strings em vez de números"', () => {
-    cy.get('#firstName').type('Walmyr')
-    cy.get('#lastName').type('Lima e Silva Filho')
-    cy.get('#email').type('walmyr@talkingabouttesting.com')
-    cy.get('#phone').type('abc')
+    cy.get('#phone')
+    .type('abc')
 
     cy.get('input').should('not.have.value', 'abc')
   })
