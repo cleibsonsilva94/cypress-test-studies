@@ -47,6 +47,39 @@ it.only('Campo telefone continua vazio quando preenchido com um valor não numé
 })
 
 
+// Solução do professor CT007. A diferença para o meu teste é que ele quebra as linhas e não digita novamente nada.
+// Uma diferença significativa é que ele verifica se a string está vazia usando aspas simples: ''.
+// Boa solução :)
+
+it.only('preenche e limpa os campos nome, sobrenome, email e telefone', () => {
+ 
+  cy.get('#firstName')
+    .type('Walmyr')
+    .should('have.value', 'Walmyr')
+    .clear()
+    .should('have.value', '')
+
+  cy.get('#lastName')
+    .type('Lima e Silva Filho')
+    .should('have.value', 'Lima e Silva Filho')
+    .clear()
+    .should('have.value', '')
+
+  cy.get('#email')
+    .type('walmyr@talkingabouttesting.com')
+    .should('have.value', 'walmyr@talkingabouttesting.com')
+    .clear()
+    .should('have.value', '')
+
+  cy.get('#phone')
+    .type('123456789')
+    .should('have.value', '123456789')
+    .clear()
+    .should('have.value', '')
+})
+
+
+
 })
 
 

@@ -80,7 +80,14 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
     cy.get('input').should('not.have.value', 'abc')
   })
   it('CT007 Verifica se os campos do formulário são apagados corretamente.', () => {
-    cy.get('#firstName').type('WA').should('have.value', 'WA').clear().should('not.have.value', 'WA').type('Walmyr').should('have.value', 'Walmyr')
+    cy.get('#firstName')
+    .type('WA')
+    .should('have.value', 'WA')
+    .clear()
+    .should('not.have.value', 'WA')
+    .type('Walmyr')
+    .should('have.value', 'Walmyr')
+
     cy.get('#lastName').type('lima e silva filho').should('have.value', 'lima e silva filho').clear().should('not.have.value', 'lima e silva filho').type('Lima e Silva Filho').should('have.value', 'Lima e Silva Filho')
     cy.get('#email').type('WALMYE@talkingabouttesting.com').should('have.value', 'WALMYE@talkingabouttesting.com').clear().should('not.have.value', 'WALMYE@talkingabouttesting.com').type('walmye@talkingabouttesting.com').should('have.value', 'walmye@talkingabouttesting.com')
     cy.get('#phone').type('123456789').should('have.value', '123456789').clear().should('not.have.value', '123456789').type('897654321').should('have.value', '897654321')
@@ -92,7 +99,7 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
 
 /*
 Sugestão de outra abordagem para o CT006: basicamente, separar as interações por campo para melhorar a legibilidade.
-it.only('CT006 - Verifica se os campos do formulário podem ser apagados e reescritos.', () => {
+it.only('CT007 - Verifica se os campos do formulário podem ser apagados e reescritos.', () => {
   // Primeiro Nome
   cy.get('#firstName')
     .type('WA')
