@@ -39,6 +39,7 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
 
     cy.get('.success')
   })
+
   it('CT002 Escrevendo uma mensagem de feedback com muitos caracteres para testar o delay.', () => {
     cy.get('#firstName').type('Walmyr')
     cy.get('#lastName').type('Lima e Silva Filho')
@@ -49,17 +50,7 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
     cy.get('.success')
   })
 
-  it('CT003 Escrevendo uma mensagem de feedback com muitos caracteres para testar o delay.', () => {
-    cy.get('#firstName').type('Walmyr')
-    cy.get('#lastName').type('Lima e Silva Filho')
-    cy.get('#email').type('walmyr@talkingabouttesting.com')
-    cy.get('#open-text-area').type('Digno és, Senhor, de receber glória, e honra, e poder; porque tu criaste todas as coisas, e por tua vontade são e foram criadas', { delay: 0 })
-    cy.get('button[type="submit"]').click()
-
-    cy.get('.success')
-  })
-
-  it.only('CT004 Teste que usa o contains para preencher campos.', () => {
+  it.only('CT003 Teste que usa o contains para preencher campos.', () => {
     cy.contains('label', 'Nome').type('Walmyr')
     cy.contains('label', 'Sobrenome ').type('Lima e Silva Filho')
     cy.contains('label', 'E-mail').type('walmyr@talkingabouttesting.com')
@@ -68,7 +59,7 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
 
     cy.get('.success').should('be.visible')
   })
-  it('CT005 Exibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido antes do envio do formulário"', () => {
+  it('CT004 Exibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido antes do envio do formulário"', () => {
     cy.get('#firstName').type('Walmyr')
     cy.get('#lastName').type('Lima e Silva Filho')
     cy.get('#email').type('walmyr@talkingabouttesting.com')
@@ -77,18 +68,18 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
 
     cy.get('.error').should('be.visible') 
   })
-  it('CT006 Teste que verifica a impossibilidade de enviar o formulário sem preencher nada.', () => {
+  it('CT005 Teste que verifica a impossibilidade de enviar o formulário sem preencher nada.', () => {
     cy.get('button[type="submit"]').click()
 
     cy.get('.error').should('be.visible')
   })
-  it('CT007 Validação do campo "telefone": inserção de strings em vez de números"', () => {
+  it('CT006 Validação do campo "telefone": inserção de strings em vez de números"', () => {
     cy.get('#phone')
     .type('abc')
 
     cy.get('input').should('not.have.value', 'abc')
   })
-  it('CT008 Verifica se os campos do formulário são apagados corretamente.', () => {
+  it('CT007 Verifica se os campos do formulário são apagados corretamente.', () => {
     cy.get('#firstName').type('WA').should('have.value', 'WA').clear().should('not.have.value', 'WA').type('Walmyr').should('have.value', 'Walmyr')
     cy.get('#lastName').type('lima e silva filho').should('have.value', 'lima e silva filho').clear().should('not.have.value', 'lima e silva filho').type('Lima e Silva Filho').should('have.value', 'Lima e Silva Filho')
     cy.get('#email').type('WALMYE@talkingabouttesting.com').should('have.value', 'WALMYE@talkingabouttesting.com').clear().should('not.have.value', 'WALMYE@talkingabouttesting.com').type('walmye@talkingabouttesting.com').should('have.value', 'walmye@talkingabouttesting.com')

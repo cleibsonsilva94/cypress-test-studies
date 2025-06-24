@@ -39,7 +39,7 @@ it.only('preenche os campos obrigatórios e envia o formulário', () => {
   cy.get('.success').should('be.visible') // Também é diferente: verifica se o elemento está visível.
 })
 
-// Teste para garantir que o campo de telefone não aceita letras CT007 
+// Teste para garantir que o campo de telefone não aceita letras CT006 
 it.only('Campo telefone continua vazio quando preenchido com um valor não numérico', () => {
   cy.get('#phone')
     .type('abcdef') // tenta digitar letras no campo de telefone
