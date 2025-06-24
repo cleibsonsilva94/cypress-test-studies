@@ -116,8 +116,8 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
       .should('have.value', '897654321')
   })
 
-  it.only('CT008 - Preenche o formulário com comando customizado', () => {
-    cy.fillSignupForm()
+  it('CT008 - Preenche o formulário com comando customizado', () => {
+    cy.fillInAllFieldsAndSendTheForm()
   })
 })
 
