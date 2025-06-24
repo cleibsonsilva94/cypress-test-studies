@@ -32,7 +32,7 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
     cy.get('textarea[id="open-text-area"]')
       .as('elogiolField')
       .should('be.visible')
-      .type('Botafogo venceu')
+      .type('Obrigado')
     cy.get('@elogiolField').should('have.value', 'Obrigado')
 
     cy.get('.button').click()
@@ -47,7 +47,7 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
       'Digno és, Senhor, de receber glória, e honra, e poder; porque tu criaste todas as coisas, e por tua vontade são e foram criadas',
       { delay: 0 }
     )
-    cy.get('button[type="submit"]').click()
+    cy.get('button[type="submit"]').click()//SEM CONTAINS
     cy.get('.success')
   })
 
@@ -116,15 +116,15 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
       .should('have.value', '897654321')
   })
 
-  it.only('CT008 - Preenche o formulário com comando customizado', () => {
-    const data = {
+  it('CT008 - Preenche o formulário com comando customizado', () => {
+    /*const data = {
       fistName: "Ana",
       lastName: "Silva",
       email: "cle@12teste.com",
       text: "Teste test"
-    }
+    }*/
 
-    cy.fillInAllFieldsAndSendTheForm(data)
+    cy.fillInAllFieldsAndSendTheForm()
   })
 
 })

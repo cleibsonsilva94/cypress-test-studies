@@ -29,13 +29,18 @@
    Comandos customizados — formas
 ====================================== */
 
-Cypress.Commands.add('fillInAllFieldsAndSendTheForm' , data => {
+Cypress.Commands.add('fillInAllFieldsAndSendTheForm', (data = {
+  fistName: "Pelé",
+  lastName: "Lionel Cristiano Ronaldinho",
+  email: "peleemelhor@12teste.com",
+  text: "Cristiano Ronaldo"
+}) => {
   cy.contains('label', 'Nome').type(data.fistName)
   cy.contains('label', 'Sobrenome ').type(data.lastName)
   cy.contains('label', 'E-mail').type(data.email)
   cy.contains('label', 'Algum elogio ou feedback para nós?').type(data.text, { delay: 0 })
   cy.contains('button', 'Enviar').click()
-  })
+})
 
 /*
 Cypress.Commands.add('fillInAllFieldsAndSendTheForm', () => {
