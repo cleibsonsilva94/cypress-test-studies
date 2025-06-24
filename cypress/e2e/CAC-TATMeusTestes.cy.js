@@ -123,8 +123,25 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
       email: "cle@12teste.com",
       text: "Teste test"
     }*/
-
     cy.fillInAllFieldsAndSendTheForm()
+  })
+  //Usando o comando Select() para selecionar elementos suspensos
+  it.only('CT009 - Seleciona um produto (YouTube) por seu texto', () => {
+    cy.get('#product')
+      .select('YouTube')
+      .should('have.value', 'youtube')
+  })
+
+  it.only('CT010 - Seleciona um produto (Mentoria) por seu value', () => {
+    cy.get('#product')
+      .select('Mentoria')
+      .should('have.value', 'mentoria')
+  })
+
+  it.only('CT011 - seleciona um produto (Blog) por seu índice ', () => {
+    cy.get('#product')
+      .select(1)
+      .should('have.value', 'blog')
   })
 
 })
@@ -132,6 +149,7 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
 /* ===================================
    COMENTÁRIOS ADICIONAIS E EXPLICATIVOS
 ====================================== */
+// Usando o comando select() para selecionar elementos suspensos em CT009-CT011
 
 // A aplicação de comandos customizados no Cypress é semelhante ao padrão PageObject.
 // A principal diferença é que não há necessidade de importar manualmente as classes com os métodos
