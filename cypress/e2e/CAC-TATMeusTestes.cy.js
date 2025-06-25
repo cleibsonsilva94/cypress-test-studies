@@ -131,7 +131,6 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
       .select('YouTube')
       .should('have.value', 'youtube')
   })
-
   it('CT010 - Seleciona um produto (Mentoria) por seu value', () => {
     cy.get('#product')
       .select('Mentoria')
@@ -143,18 +142,28 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
       .select(1)
       .should('have.value', 'blog')
   })
-  it.only('CT012 - marca o tipo de atendimento "Ajuda" ', () => {
+  it('CT012 - marca o tipo de atendimento "Ajuda" ', () => {
     cy.get('[value="feedback"]')
       .check()
       .should('be.checked')//Sugestão do professor e outra forma de usar o should. 
   })
-  it.only('CT013 marca cada tipo de atendimento', () => {
+  it('CT013 - marca cada tipo de atendimento', () => {
     cy.get('input[type="radio"]')
       .each(typeOfService => {
         cy.wrap(typeOfService)
           .check()
           .should('be.checked')
       })
+  })
+  it.only('CT014 - marca ambos checkboxes, depois desmarca o último', () => {
+    cy.get('[type="checkbox"]')
+      .check()
+      .should('be.checked')
+      .uncheck()
+
+    cy.get('[type="checkbox"]')
+      .last()
+      .should('not.be.checked')
   })
 
 })
