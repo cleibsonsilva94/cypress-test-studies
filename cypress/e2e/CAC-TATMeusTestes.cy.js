@@ -159,10 +159,8 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
     cy.get('[type="checkbox"]')
       .check()
       .should('be.checked')
-      .uncheck()
-
-    cy.get('[type="checkbox"]')
       .last()
+      .uncheck()
       .should('not.be.checked')
   })
 
