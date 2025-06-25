@@ -155,13 +155,30 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
           .should('be.checked')
       })
   })
-  it.only('CT014 - marca ambos checkboxes, depois desmarca o último', () => {
+  it('CT014 - marca ambos checkboxes, depois desmarca o último', () => {
     cy.get('[type="checkbox"]')
       .check()
       .should('be.checked')
       .last()
       .uncheck()
       .should('not.be.checked')
+  })
+
+  it('CT015 - Nova versão do CT004 com o uso do .check()', () => {
+    cy.get('#firstName').type('Walmyr')
+    cy.get('#lastName').type('Lima e Silva Filho')
+    cy.get('#email').type('walmyr@talkingabouttesting.com')
+    cy.get('#phone-checkbox').check()
+    cy.get('button[type="submit"]').click()
+
+    cy.get('.error').should('be.visible')
+  })
+  it('CT016 - Enviando um arquivo', () => {
+    cy.get('#file-upload')
+    .selectFile('cypress/fixtures/example.json')
+      .should(input => {
+        expect(input[0].files[0].name).to.equal('example.json')
+      })
   })
 
 })
@@ -184,7 +201,7 @@ Separar as ações por campo melhora a clareza do teste. Também é possível cr
 reutilizável que recebe o seletor e dois valores (para preencher, apagar e preencher de novo).
 
 Exemplo de função:
-
+""
 export function preencherApagarPreencher(selector, valor1, valor2) {
   cy.get(selector)
     .type(valor1)
