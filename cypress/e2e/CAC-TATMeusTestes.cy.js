@@ -1,8 +1,7 @@
-describe('CT001 Central de Atendimento ao Cliente TAT', () => {
+describe('Central de Atendimento ao Cliente TAT', () => {
   beforeEach(() => {
     cy.visit('./src/index.html')
   })
-
   it('CT001 - Preenche os campos obrigatórios e envia o formulário', () => {
     cy.get('input[name="firstName"]')
       .as('firstNameField')
@@ -23,24 +22,25 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
     cy.get('@emailField').should('have.value', 'cleibson@gmail.com')
 
     cy.get('input[id="phone"]')
-      .as('phonelField')
+      .as('phoneField')
       .should('be.visible')
       .type('93187771')
-    cy.get('@phonelField').should('have.value', '93187771')
+    cy.get('@phoneField').should('have.value', '93187771')
 
     cy.get('input[value="elogio"]').click()
 
     cy.get('textarea[id="open-text-area"]')
-      .as('elogiolField')
+      .as('feedbackField')
       .should('be.visible')
       .type('Obrigado')
-    cy.get('@elogiolField').should('have.value', 'Obrigado')
+    cy.get('@feedbackField').should('have.value', 'Obrigado')
 
     cy.get('.button').click()
     cy.get('.success')
   })
 
-  it('CT002 - Escrevendo uma mensagem de feedback com muitos caracteres para testar o delay.', () => {
+  // CT002 - TESTE COM MENSAGEM LONGA E USO DO DELAY
+  it('CT002 - Escreve uma mensagem de feedback com muitos caracteres para testar o delay', () => {
     cy.get('#firstName').type('Walmyr')
     cy.get('#lastName').type('Lima e Silva Filho')
     cy.get('#email').type('walmyr@talkingabouttesting.com')
@@ -52,7 +52,8 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
     cy.get('.success')
   })
 
-  it('CT003 - Teste que usa o contains para preencher campos.', () => {
+  // CT003 - USO DO CONTAINS PARA PREENCHER CAMPOS
+  it('CT003 - Usa o contains para preencher campos do formulário', () => {
     cy.contains('label', 'Nome').type('Walmyr')
     cy.contains('label', 'Sobrenome ').type('Lima e Silva Filho')
     cy.contains('label', 'E-mail').type('walmyr@talkingabouttesting.com')
@@ -70,20 +71,24 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
     cy.get('#email').type('walmyr@talkingabouttesting.com')
     cy.get('#phone-checkbox').click()
     cy.get('button[type="submit"]').click()
+
     cy.get('.error').should('be.visible')
   })
 
-  it('CT005 - Verifica a impossibilidade de enviar o formulário sem preencher nada.', () => {
+  it('CT005 - Verifica a impossibilidade de enviar o formulário sem preencher nada', () => {
     cy.get('button[type="submit"]').click()
+
     cy.get('.error').should('be.visible')
   })
 
-  it('CT006 - Validação do campo "telefone": inserção de strings em vez de números', () => {
+  it('CT006 - Validação do campo telefone: inserção de letras', () => {
     cy.get('#phone').type('abc')
+
     cy.get('input').should('not.have.value', 'abc')
   })
 
-  it('CT007 - Verifica se os campos do formulário são apagados corretamente.', () => {
+  // CT007 - USO DO MÉTODO .clear() PARA APAGAR CAMPOS
+  it('CT007 - Verifica se os campos do formulário são apagados corretamente', () => {
     cy.get('#firstName')
       .type('WA')
       .should('have.value', 'WA')
@@ -117,34 +122,40 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
       .should('have.value', '897654321')
   })
 
+  // CT008 - USO DE COMANDO CUSTOMIZADO
   it('CT008 - Preenche o formulário com comando customizado', () => {
     cy.fillInAllFieldsAndSendTheForm()
   })
 
+  // CT009 - SELEÇÃO DE PRODUTO PELO TEXTO
   it('CT009 - Seleciona um produto (YouTube) por seu texto', () => {
     cy.get('#product')
       .select('YouTube')
       .should('have.value', 'youtube')
   })
 
-  it('CT010 - Seleciona um produto (Mentoria) por seu value', () => {
+  // CT010 - SELEÇÃO DE PRODUTO PELO VALUE
+  it('CT010 - Seleciona um produto (Mentoria) por seu valor', () => {
     cy.get('#product')
       .select('Mentoria')
       .should('have.value', 'mentoria')
   })
 
+  // CT011 - SELEÇÃO DE PRODUTO PELO ÍNDICE
   it('CT011 - Seleciona um produto (Blog) por seu índice', () => {
     cy.get('#product')
       .select(1)
       .should('have.value', 'blog')
   })
 
+  // CT012 - MARCA UM TIPO DE ATENDIMENTO (RÁDIO)
   it('CT012 - Marca o tipo de atendimento "Ajuda"', () => {
     cy.get('[value="feedback"]')
       .check()
       .should('be.checked')
   })
 
+  // CT013 - MARCA TODOS OS TIPOS DE ATENDIMENTO
   it('CT013 - Marca cada tipo de atendimento', () => {
     cy.get('input[type="radio"]')
       .each(typeOfService => {
@@ -154,7 +165,8 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
       })
   })
 
-  it('CT014 - Marca ambos checkboxes, depois desmarca o último', () => {
+  // CT014 - MARCA E DESMARCA CHECKBOXES
+  it('CT014 - Marca ambos os checkboxes e desmarca o último', () => {
     cy.get('[type="checkbox"]')
       .check()
       .should('be.checked')
@@ -163,16 +175,19 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
       .should('not.be.checked')
   })
 
-  it('CT015 - Nova versão do CT004 com o uso do .check()', () => {
+  // CT015 - NOVA VERSÃO DO CT004 USANDO .check()
+  it('CT015 - Versão alternativa do CT004 com uso do .check()', () => {
     cy.get('#firstName').type('Walmyr')
     cy.get('#lastName').type('Lima e Silva Filho')
     cy.get('#email').type('walmyr@talkingabouttesting.com')
     cy.get('#phone-checkbox').check()
     cy.get('button[type="submit"]').click()
+
     cy.get('.error').should('be.visible')
   })
 
-  it('CT016 - Enviando um arquivo', () => {
+  // CT016 - UPLOAD DE ARQUIVO VIA SELECTFILE()
+  it('CT016 - Envia um arquivo', () => {
     cy.get('#file-upload')
       .selectFile('cypress/fixtures/example.json')
       .should(input => {
@@ -180,7 +195,8 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
       })
   })
 
-  it('CT017 - Enviando um arquivo via drag-drop', () => {
+  // CT017 - UPLOAD VIA DRAG AND DROP
+  it('CT017 - Envia um arquivo via drag and drop', () => {
     cy.get('#file-upload')
       .selectFile('cypress/fixtures/example.json', { action: 'drag-drop' })
       .should(input => {
@@ -188,14 +204,15 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
       })
   })
 
-  it.only('CT018 - seleciona um arquivo utilizando uma fixture para a qual foi dada um alias', () => {
+  // CT018 - UPLOAD DE ARQUIVO COM USO DE FIXTURE COM ALIAS
+  it.only('CT018 - Seleciona um arquivo utilizando uma fixture com alias', () => {
     cy.fixture('example.json').as('FileTest')
     cy.get('#file-upload')
       .selectFile('@FileTest')
       .should(input => {
         expect(input[0].files[0].name).to.equal('example.json')
       })
-    })
+  })
 })
 
 /* ===================================
