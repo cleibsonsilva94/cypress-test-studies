@@ -126,22 +126,35 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
     cy.fillInAllFieldsAndSendTheForm()
   })
   //Usando o comando Select() para selecionar elementos suspensos
-  it.only('CT009 - Seleciona um produto (YouTube) por seu texto', () => {
+  it('CT009 - Seleciona um produto (YouTube) por seu texto', () => {
     cy.get('#product')
       .select('YouTube')
       .should('have.value', 'youtube')
   })
 
-  it.only('CT010 - Seleciona um produto (Mentoria) por seu value', () => {
+  it('CT010 - Seleciona um produto (Mentoria) por seu value', () => {
     cy.get('#product')
       .select('Mentoria')
       .should('have.value', 'mentoria')
   })
 
-  it.only('CT011 - seleciona um produto (Blog) por seu índice ', () => {
+  it('CT011 - seleciona um produto (Blog) por seu índice ', () => {
     cy.get('#product')
       .select(1)
       .should('have.value', 'blog')
+  })
+  it.only('CT012 - marca o tipo de atendimento "Ajuda" ', () => {
+    cy.get('[value="feedback"]')
+      .check()
+      .should('be.checked')//Sugestão do professor e outra forma de usar o should. 
+  })
+  it.only('CT013 marca cada tipo de atendimento', () => {
+    cy.get('input[type="radio"]')
+      .each(typeOfService => {
+        cy.wrap(typeOfService)
+          .check()
+          .should('be.checked')
+      })
   })
 
 })
@@ -174,4 +187,10 @@ export function preencherApagarPreencher(selector, valor1, valor2) {
     .type(valor2)
     .should('have.value', valor2)
 }
+
+// .each() e cy.wrap() - CT013
+// O método .each(typeOfService => {}) percorre os elementos 
+// encontrados e, com a ajuda do cy.wrap(typeOfService), 
+// executa as ações necessárias em cada um deles, um por vez.
+
 */
