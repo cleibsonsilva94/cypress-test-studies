@@ -2,6 +2,7 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
   beforeEach(() => {
     cy.visit('./src/index.html')
   })
+
   it('CT001 - Preenche os campos obrigatórios e envia o formulário', () => {
     cy.get('input[name="firstName"]')
       .as('firstNameField')
@@ -47,7 +48,7 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
       'Digno és, Senhor, de receber glória, e honra, e poder; porque tu criaste todas as coisas, e por tua vontade são e foram criadas',
       { delay: 0 }
     )
-    cy.get('button[type="submit"]').click()//SEM CONTAINS
+    cy.get('button[type="submit"]').click()
     cy.get('.success')
   })
 
@@ -117,37 +118,34 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
   })
 
   it('CT008 - Preenche o formulário com comando customizado', () => {
-    /*const data = {
-      fistName: "Ana",
-      lastName: "Silva",
-      email: "cle@12teste.com",
-      text: "Teste test"
-    }*/
     cy.fillInAllFieldsAndSendTheForm()
   })
-  //Usando o comando Select() para selecionar elementos suspensos
+
   it('CT009 - Seleciona um produto (YouTube) por seu texto', () => {
     cy.get('#product')
       .select('YouTube')
       .should('have.value', 'youtube')
   })
+
   it('CT010 - Seleciona um produto (Mentoria) por seu value', () => {
     cy.get('#product')
       .select('Mentoria')
       .should('have.value', 'mentoria')
   })
 
-  it('CT011 - seleciona um produto (Blog) por seu índice ', () => {
+  it('CT011 - Seleciona um produto (Blog) por seu índice', () => {
     cy.get('#product')
       .select(1)
       .should('have.value', 'blog')
   })
-  it('CT012 - marca o tipo de atendimento "Ajuda" ', () => {
+
+  it('CT012 - Marca o tipo de atendimento "Ajuda"', () => {
     cy.get('[value="feedback"]')
       .check()
-      .should('be.checked')//Sugestão do professor e outra forma de usar o should. 
+      .should('be.checked')
   })
-  it('CT013 - marca cada tipo de atendimento', () => {
+
+  it('CT013 - Marca cada tipo de atendimento', () => {
     cy.get('input[type="radio"]')
       .each(typeOfService => {
         cy.wrap(typeOfService)
@@ -155,7 +153,8 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
           .should('be.checked')
       })
   })
-  it('CT014 - marca ambos checkboxes, depois desmarca o último', () => {
+
+  it('CT014 - Marca ambos checkboxes, depois desmarca o último', () => {
     cy.get('[type="checkbox"]')
       .check()
       .should('be.checked')
@@ -170,9 +169,9 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
     cy.get('#email').type('walmyr@talkingabouttesting.com')
     cy.get('#phone-checkbox').check()
     cy.get('button[type="submit"]').click()
-
     cy.get('.error').should('be.visible')
   })
+
   it('CT016 - Enviando um arquivo', () => {
     cy.get('#file-upload')
       .selectFile('cypress/fixtures/example.json')
@@ -181,14 +180,13 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
       })
   })
 
-  it.only('CT017 - Enviando um arquivo', () => {
+  it.only('CT017 - Enviando um arquivo via drag-drop', () => {
     cy.get('#file-upload')
       .selectFile('cypress/fixtures/example.json', { action: 'drag-drop' })
       .should(input => {
         expect(input[0].files[0].name).to.equal('example.json')
       })
   })
-
 })
 
 /* ===================================
@@ -209,7 +207,6 @@ Separar as ações por campo melhora a clareza do teste. Também é possível cr
 reutilizável que recebe o seletor e dois valores (para preencher, apagar e preencher de novo).
 
 Exemplo de função:
-""
 export function preencherApagarPreencher(selector, valor1, valor2) {
   cy.get(selector)
     .type(valor1)
@@ -224,5 +221,4 @@ export function preencherApagarPreencher(selector, valor1, valor2) {
 // O método .each(typeOfService => {}) percorre os elementos 
 // encontrados e, com a ajuda do cy.wrap(typeOfService), 
 // executa as ações necessárias em cada um deles, um por vez.
-
 */
