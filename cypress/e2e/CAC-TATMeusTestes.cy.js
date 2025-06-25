@@ -180,13 +180,22 @@ describe('CT001 Central de Atendimento ao Cliente TAT', () => {
       })
   })
 
-  it.only('CT017 - Enviando um arquivo via drag-drop', () => {
+  it('CT017 - Enviando um arquivo via drag-drop', () => {
     cy.get('#file-upload')
       .selectFile('cypress/fixtures/example.json', { action: 'drag-drop' })
       .should(input => {
         expect(input[0].files[0].name).to.equal('example.json')
       })
   })
+
+  it.only('CT018 - seleciona um arquivo utilizando uma fixture para a qual foi dada um alias', () => {
+    cy.fixture('example.json').as('FileTest')
+    cy.get('#file-upload')
+      .selectFile('@FileTest')
+      .should(input => {
+        expect(input[0].files[0].name).to.equal('example.json')
+      })
+    })
 })
 
 /* ===================================
