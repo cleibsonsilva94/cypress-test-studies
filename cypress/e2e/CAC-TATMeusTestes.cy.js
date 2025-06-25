@@ -205,7 +205,7 @@ describe('Central de Atendimento ao Cliente TAT', () => {
   })
 
   // CT018 - UPLOAD DE ARQUIVO COM USO DE FIXTURE COM ALIAS
-  it.only('CT018 - Seleciona um arquivo utilizando uma fixture com alias', () => {
+  it('CT018 - Seleciona um arquivo utilizando uma fixture com alias', () => {
     cy.fixture('example.json').as('FileTest')
     cy.get('#file-upload')
       .selectFile('@FileTest')
@@ -213,6 +213,12 @@ describe('Central de Atendimento ao Cliente TAT', () => {
         expect(input[0].files[0].name).to.equal('example.json')
       })
   })
+
+  // LIDANDO COM OUTRA ABA NO NAVEGADOR
+  it.only('CT019 - Verifica se as tags "target" estão presentes e definidas como "_blank"', () => {
+    cy.get('a').should('have.attr', 'target', '_blank')
+  })
+
 })
 
 /* ===================================
