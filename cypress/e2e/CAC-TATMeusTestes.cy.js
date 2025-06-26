@@ -205,7 +205,7 @@ describe('Central de Atendimento ao Cliente TAT', () => {
   })
 
   // CT018 - UPLOAD DE ARQUIVO COM USO DE FIXTURE COM ALIAS
-  it.only('CT018 - Seleciona um arquivo utilizando uma fixture com alias', () => {
+  it('CT018 - Seleciona um arquivo utilizando uma fixture com alias', () => {
     cy.fixture('example.json').as('FileTest')
     cy.get('#file-upload')
       .selectFile('@FileTest')
@@ -221,7 +221,7 @@ describe('Central de Atendimento ao Cliente TAT', () => {
       .and('have.attr', 'target', '_blank')
   })
 
-  it('CT019 - Acessa a página de política de privacidade removendo o target e clicando', () => {
+  it.only('CT019 - Acessa a página de política de privacidade removendo o target e clicando', () => {
     cy.contains('a', 'Política de Privacidade')
       .invoke('removeAttr', 'target')
       .click()
