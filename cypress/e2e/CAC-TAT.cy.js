@@ -27,7 +27,7 @@ describe('Central de Atendimento ao Cliente TAT', () => { // Suíte de testes
   })
 
   // Código do professor para CT003
-it.only('preenche os campos obrigatórios e envia o formulário', () => {
+it('preenche os campos obrigatórios e envia o formulário', () => {
   const longText = Cypress._.repeat('abcdefghijklmnopqrstuvwxyz', 10) // Função que repete um texto várias vezes. É praticamente a única diferença entre meu teste e o do professor.
 
   cy.get('#firstName').type('Walmyr')
@@ -40,7 +40,7 @@ it.only('preenche os campos obrigatórios e envia o formulário', () => {
 })
 
 // Teste para garantir que o campo de telefone não aceita letras CT006 
-it.only('Campo telefone continua vazio quando preenchido com um valor não numérico', () => {
+it('Campo telefone continua vazio quando preenchido com um valor não numérico', () => {
   cy.get('#phone')
     .type('abcdef') // tenta digitar letras no campo de telefone
     .should('have.value', '') // espera que o campo continue vazio
@@ -51,7 +51,7 @@ it.only('Campo telefone continua vazio quando preenchido com um valor não numé
 // Uma diferença significativa é que ele verifica se a string está vazia usando aspas simples: ''.
 // Boa solução :)
 
-it.only('preenche e limpa os campos nome, sobrenome, email e telefone', () => {
+it('preenche e limpa os campos nome, sobrenome, email e telefone', () => {
  
   cy.get('#firstName')
     .type('Walmyr')

@@ -221,7 +221,7 @@ describe('Central de Atendimento ao Cliente TAT', () => {
       .and('have.attr', 'target', '_blank')
   })
 
-  it.only('CT019 - Acessa a página de política de privacidade removendo o target e clicando', () => {
+  it('CT019 - Acessa a página de política de privacidade removendo o target e clicando', () => {
     cy.contains('a', 'Política de Privacidade')
       .invoke('removeAttr', 'target')
       .click()
