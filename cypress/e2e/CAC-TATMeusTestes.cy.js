@@ -216,9 +216,10 @@ describe('Central de Atendimento ao Cliente TAT', () => {
 
   // LIDANDO COM OUTRA ABA NO NAVEGADOR
   it.only('CT019 - Verifica se as tags "target" estão presentes e definidas como "_blank"', () => {
-    cy.get('a').should('have.attr', 'target', '_blank')
+    cy.contains('a', 'Política de Privacidade')
+      .should('have.attr', 'href', 'privacy.html')
+      .and('have.attr', 'target', '_blank')
   })
-
 })
 
 /* ===================================
