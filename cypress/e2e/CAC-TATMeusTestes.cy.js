@@ -205,7 +205,7 @@ describe('Central de Atendimento ao Cliente TAT', () => {
   })
 
   // CT018 - UPLOAD DE ARQUIVO COM USO DE FIXTURE COM ALIAS
-  it('CT018 - Seleciona um arquivo utilizando uma fixture com alias', () => {
+  it.only('CT018 - Seleciona um arquivo utilizando uma fixture com alias', () => {
     cy.fixture('example.json').as('FileTest')
     cy.get('#file-upload')
       .selectFile('@FileTest')
@@ -215,11 +215,20 @@ describe('Central de Atendimento ao Cliente TAT', () => {
   })
 
   // LIDANDO COM OUTRA ABA NO NAVEGADOR
-  it.only('CT019 - Verifica se as tags "target" estão presentes e definidas como "_blank"', () => {
+  it('CT019 - Verifica se as tags "target" estão presentes e definidas como "_blank"', () => {
     cy.contains('a', 'Política de Privacidade')
       .should('have.attr', 'href', 'privacy.html')
       .and('have.attr', 'target', '_blank')
   })
+
+  it('CT019 - Acessa a página de política de privacidade removendo o target e clicando', () => {
+    cy.contains('a', 'Política de Privacidade')
+      .invoke('removeAttr', 'target')
+      .click()
+
+    cy.contains('h1', 'CAC TAT - Política de Privacidade').should('be.visible')
+  })
+  
 })
 
 /* ===================================
