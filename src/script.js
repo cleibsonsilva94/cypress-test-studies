@@ -1,3 +1,5 @@
+console.log('Amor só de mãe')
+
 let isPhoneRequired = false
 
 const phoneLabelSpan = document.querySelector('.phone-label-span')
