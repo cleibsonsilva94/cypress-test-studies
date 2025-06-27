@@ -1,28 +1,82 @@
-# 🌲 Cypress, do Zero à Nuvem ☁️
+# Cypress Test Studies - Testes Automatizados  
 
-👋 Seja bem-vindo(a)!
+Este repositório contém estudos e práticas com testes automatizados utilizando **Cypress**, uma das ferramentas mais populares entre profissionais de QA para testes end-to-end em aplicações web.  
 
-É muito bom tê-lo(a) aqui. Tenho certeza que você vai amar esse curso. ❤️
+## 📌 Requisitos  
 
-## O que você vai aprender?
+Antes de rodar os testes, certifique-se de que os seguintes componentes estão instalados em seu ambiente:  
 
-- Como configurar um projeto Cypress do zero
-- Como visitar páginas locais e remotas
-- Como lidar com os elementos mais comuns encontrados em aplicações web
-- Como testar upload de arquivos
-- Como realizar as mais diversas verificações de resultados esperados
-- Como criar comandos customizados
-- Como lidar com links que abrem em outra aba do navegador
-- Como rodar testes simulando as dimensões de um dispositivo móvel
-- Como resolver os mesmos problemas de diferentes formas, conhecendo a [API do Cypress](https://docs.cypress.io/api/table-of-contents)
-- Como criar uma documentação mínima para seu projeto de testes automatizados
-- Como executar os testes em um _workflow_ de integração contínua sempre que mudanças ocorrerem no código da aplicação (ou dos testes)
-- Como integrar seu _workflow_ de integração contínua com o Cypress Cloud (o serviço de gestão de testes do Cypress na nuvem)
+- **Node.js**: Recomendado a versão 16 ou superior  
+- **NPM**: Gerenciador de pacotes do Node.js  
 
-## Vamos começar?
+## 🚀 Instalação do Cypress  
 
-Vá para a seção [estrutura do curso](./lessons/_course-structure_.md).
+1. Clone este repositório:  
+   ```bash
+   git clone git@github.com:seu-usuario/cypress-test-studies.git
+   ```
 
-___
+2. Acesse o diretório do projeto:  
+   ```bash
+   cd cypress-test-studies
+   ```
 
-Este é um curso da **Escola Talking About Testing**.
+3. Instale as dependências do projeto:  
+   ```bash
+   npm install
+   ```
+
+4. Instale o Cypress (caso não tenha sido instalado com as dependências):  
+   ```bash
+   npm install cypress --save-dev
+   ```
+
+## 🥾 Execução dos Testes  
+
+Para rodar os testes, utilize os comandos abaixo:
+
+- **Abrir o Cypress em modo interativo (desktop):**  
+  ```bash
+  npx cypress open
+  ```
+
+- **Abrir o Cypress em modo interativo (mobile):**  
+  ```bash
+  npx cypress open --config viewportWidth=410,viewportHeight=860
+  ```
+
+- **Executar os testes em modo headless (desktop):**  
+  ```bash
+  npx cypress run
+  ```
+
+- **Executar os testes em modo headless (mobile):**  
+  ```bash
+  npx cypress run --config viewportWidth=410,viewportHeight=860
+  ```
+
+## 📂 Estrutura do Projeto  
+
+- `cypress/e2e/CAC-TAT.cy.js`  
+  Testes disponibilizados pelo professor do curso.
+
+- `cypress/e2e/CAC-TATMeusTestes.cy.js`  
+  Testes desenvolvidos por mim durante o curso, com base nos desafios propostos.
+
+- `cypress/e2e/privacyPolicy.cy.js`  
+  Testes voltados à validação da página de Política de Privacidade da aplicação.
+
+## 🧪 Aplicação Testada  
+
+[CAC-TAT - Central de Atendimento ao Cliente TAT](https://cac-tat-v3.s3.eu-central-1.amazonaws.com/index.html)
+
+## 📚 Referência  
+
+Este repositório é um fork de:  
+🔗 [https://github.com/wlsf82/cypress-do-zero-a-nuvem](https://github.com/wlsf82/cypress-do-zero-a-nuvem)  
+
+O curso é extremamente didático e nos incentiva a construir o conhecimento lendo a [documentação oficial do Cypress](https://docs.cypress.io) e colocando em prática as atividades propostas.
+
+---
+
+Sinta-se à vontade para explorar o projeto, sugerir melhorias ou compartilhar dicas! 🚀
