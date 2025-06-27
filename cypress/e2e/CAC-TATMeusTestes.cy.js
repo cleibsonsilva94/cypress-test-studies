@@ -36,13 +36,16 @@ describe('Central de Atendimento ao Cliente TAT - Meus Testes', () => {
     cy.get('.success').should('be.visible')
   })
 
-  it('CT003 - Deve preencher campos utilizando o método contains', () => {
+  it.only('CT003 - Deve preencher campos utilizando o método contains', () => {
     cy.contains('label', 'Nome').type('Walmyr')
     cy.contains('label', 'Sobrenome').type('Lima e Silva Filho')
     cy.contains('label', 'E-mail').type('walmyr@talkingabouttesting.com')
     cy.contains('label', 'Algum elogio ou feedback para nós?').type('Feedback importante.', { delay: 0 })
     cy.contains('button', 'Enviar').click()
+    cy.clock()
     cy.get('.success').should('be.visible')
+    cy.tick(3000)
+    cy.get('.success').should('not.be.visible')
   })
 
   it('CT004 - Deve exibir erro quando telefone for obrigatório e não for preenchido', () => {
