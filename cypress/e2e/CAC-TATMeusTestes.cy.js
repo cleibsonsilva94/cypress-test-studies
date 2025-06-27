@@ -1,193 +1,115 @@
-describe('Central de Atendimento ao Cliente TAT', () => {
+describe('Central de Atendimento ao Cliente TAT - Meus Testes', () => {
   beforeEach(() => {
     cy.visit('./src/index.html')
   })
-  it('CT001 - Preenche os campos obrigatórios e envia o formulário', () => {
-    cy.get('input[name="firstName"]')
-      .as('firstNameField')
-      .should('be.visible')
-      .type('Cleibson')
+
+  it('CT001 - Deve preencher todos os campos obrigatórios e enviar o formulário com sucesso', () => {
+    cy.get('input[name="firstName"]').as('firstNameField').should('be.visible').type('Cleibson')
     cy.get('@firstNameField').should('have.value', 'Cleibson')
 
-    cy.get('input[name="lastName"]')
-      .as('lastNameField')
-      .should('be.visible')
-      .type('Lima')
+    cy.get('input[name="lastName"]').as('lastNameField').should('be.visible').type('Lima')
     cy.get('@lastNameField').should('have.value', 'Lima')
 
-    cy.get('input[id="email"]')
-      .as('emailField')
-      .should('be.visible')
-      .type('cleibson@gmail.com')
+    cy.get('#email').as('emailField').should('be.visible').type('cleibson@gmail.com')
     cy.get('@emailField').should('have.value', 'cleibson@gmail.com')
 
-    cy.get('input[id="phone"]')
-      .as('phoneField')
-      .should('be.visible')
-      .type('93187771')
+    cy.get('#phone').as('phoneField').should('be.visible').type('93187771')
     cy.get('@phoneField').should('have.value', '93187771')
 
-    cy.get('input[value="elogio"]').click()
-
-    cy.get('textarea[id="open-text-area"]')
-      .as('feedbackField')
-      .should('be.visible')
-      .type('Obrigado')
+    cy.get('input[value="elogio"]').check()
+    cy.get('#open-text-area').as('feedbackField').type('Obrigado')
     cy.get('@feedbackField').should('have.value', 'Obrigado')
 
     cy.get('.button').click()
-    cy.get('.success')
+    cy.get('.success').should('be.visible')
   })
 
-  // CT002 - TESTE COM MENSAGEM LONGA E USO DO DELAY
-  it('CT002 - Escreve uma mensagem de feedback com muitos caracteres para testar o delay', () => {
+  it('CT002 - Deve preencher mensagem longa com delay zero e exibir mensagem de sucesso', () => {
     cy.get('#firstName').type('Walmyr')
     cy.get('#lastName').type('Lima e Silva Filho')
     cy.get('#email').type('walmyr@talkingabouttesting.com')
     cy.get('#open-text-area').type(
-      'Digno és, Senhor, de receber glória, e honra, e poder; porque tu criaste todas as coisas, e por tua vontade são e foram criadas',
+      'Digno és, Senhor, de receber glória, e honra, e poder; porque tu criaste todas as coisas...',
       { delay: 0 }
     )
     cy.get('button[type="submit"]').click()
-    cy.get('.success')
+    cy.get('.success').should('be.visible')
   })
 
-  // CT003 - USO DO CONTAINS PARA PREENCHER CAMPOS
-  it('CT003 - Usa o contains para preencher campos do formulário', () => {
+  it('CT003 - Deve preencher campos utilizando o método contains', () => {
     cy.contains('label', 'Nome').type('Walmyr')
-    cy.contains('label', 'Sobrenome ').type('Lima e Silva Filho')
+    cy.contains('label', 'Sobrenome').type('Lima e Silva Filho')
     cy.contains('label', 'E-mail').type('walmyr@talkingabouttesting.com')
-    cy.contains('label', 'Algum elogio ou feedback para nós?').type(
-      'Digno és, Senhor, de receber glória, e honra, e poder; porque tu criaste todas as coisas, e por tua vontade são e foram criadas',
-      { delay: 0 }
-    )
+    cy.contains('label', 'Algum elogio ou feedback para nós?').type('Feedback importante.', { delay: 0 })
     cy.contains('button', 'Enviar').click()
     cy.get('.success').should('be.visible')
   })
 
-  it('CT004 - Exibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido', () => {
-    cy.get('#firstName').type('Walmyr')
-    cy.get('#lastName').type('Lima e Silva Filho')
-    cy.get('#email').type('walmyr@talkingabouttesting.com')
-    cy.get('#phone-checkbox').click()
-    cy.get('button[type="submit"]').click()
-
-    cy.get('.error').should('be.visible')
-  })
-
-  it('CT005 - Verifica a impossibilidade de enviar o formulário sem preencher nada', () => {
-    cy.get('button[type="submit"]').click()
-
-    cy.get('.error').should('be.visible')
-  })
-
-  it('CT006 - Validação do campo telefone: inserção de letras', () => {
-    cy.get('#phone').type('abc')
-
-    cy.get('input').should('not.have.value', 'abc')
-  })
-
-  // CT007 - USO DO MÉTODO .clear() PARA APAGAR CAMPOS
-  it('CT007 - Verifica se os campos do formulário são apagados corretamente', () => {
-    cy.get('#firstName')
-      .type('WA')
-      .should('have.value', 'WA')
-      .clear()
-      .should('not.have.value', 'WA')
-      .type('Walmyr')
-      .should('have.value', 'Walmyr')
-
-    cy.get('#lastName')
-      .type('lima e silva filho')
-      .should('have.value', 'lima e silva filho')
-      .clear()
-      .should('not.have.value', 'lima e silva filho')
-      .type('Lima e Silva Filho')
-      .should('have.value', 'Lima e Silva Filho')
-
-    cy.get('#email')
-      .type('WALMYE@talkingabouttesting.com')
-      .should('have.value', 'WALMYE@talkingabouttesting.com')
-      .clear()
-      .should('not.have.value', 'WALMYE@talkingabouttesting.com')
-      .type('walmye@talkingabouttesting.com')
-      .should('have.value', 'walmye@talkingabouttesting.com')
-
-    cy.get('#phone')
-      .type('123456789')
-      .should('have.value', '123456789')
-      .clear()
-      .should('not.have.value', '123456789')
-      .type('897654321')
-      .should('have.value', '897654321')
-  })
-
-  // CT008 - USO DE COMANDO CUSTOMIZADO
-  it('CT008 - Preenche o formulário com comando customizado', () => {
-    cy.fillInAllFieldsAndSendTheForm()
-  })
-
-  // CT009 - SELEÇÃO DE PRODUTO PELO TEXTO
-  it('CT009 - Seleciona um produto (YouTube) por seu texto', () => {
-    cy.get('#product')
-      .select('YouTube')
-      .should('have.value', 'youtube')
-  })
-
-  // CT010 - SELEÇÃO DE PRODUTO PELO VALUE
-  it('CT010 - Seleciona um produto (Mentoria) por seu valor', () => {
-    cy.get('#product')
-      .select('Mentoria')
-      .should('have.value', 'mentoria')
-  })
-
-  // CT011 - SELEÇÃO DE PRODUTO PELO ÍNDICE
-  it('CT011 - Seleciona um produto (Blog) por seu índice', () => {
-    cy.get('#product')
-      .select(1)
-      .should('have.value', 'blog')
-  })
-
-  // CT012 - MARCA UM TIPO DE ATENDIMENTO (RÁDIO)
-  it('CT012 - Marca o tipo de atendimento "Ajuda"', () => {
-    cy.get('[value="feedback"]')
-      .check()
-      .should('be.checked')
-  })
-
-  // CT013 - MARCA TODOS OS TIPOS DE ATENDIMENTO
-  it('CT013 - Marca cada tipo de atendimento', () => {
-    cy.get('input[type="radio"]')
-      .each(typeOfService => {
-        cy.wrap(typeOfService)
-          .check()
-          .should('be.checked')
-      })
-  })
-
-  // CT014 - MARCA E DESMARCA CHECKBOXES
-  it('CT014 - Marca ambos os checkboxes e desmarca o último', () => {
-    cy.get('[type="checkbox"]')
-      .check()
-      .should('be.checked')
-      .last()
-      .uncheck()
-      .should('not.be.checked')
-  })
-
-  // CT015 - NOVA VERSÃO DO CT004 USANDO .check()
-  it('CT015 - Versão alternativa do CT004 com uso do .check()', () => {
+  it('CT004 - Deve exibir erro quando telefone for obrigatório e não for preenchido', () => {
     cy.get('#firstName').type('Walmyr')
     cy.get('#lastName').type('Lima e Silva Filho')
     cy.get('#email').type('walmyr@talkingabouttesting.com')
     cy.get('#phone-checkbox').check()
     cy.get('button[type="submit"]').click()
-
     cy.get('.error').should('be.visible')
   })
 
-  // CT016 - UPLOAD DE ARQUIVO VIA SELECTFILE()
-  it('CT016 - Envia um arquivo', () => {
+  it('CT005 - Deve exibir erro ao tentar enviar formulário vazio', () => {
+    cy.get('button[type="submit"]').click()
+    cy.get('.error').should('be.visible')
+  })
+
+  it('CT006 - Deve manter o campo telefone vazio ao inserir letras', () => {
+    cy.get('#phone').type('abc').should('have.value', '')
+  })
+
+  it('CT007 - Deve permitir limpar e preencher novamente os campos', () => {
+    cy.get('#firstName').type('WA').clear().type('Walmyr').should('have.value', 'Walmyr')
+    cy.get('#lastName').type('lima').clear().type('Lima e Silva Filho').should('have.value', 'Lima e Silva Filho')
+    cy.get('#email').type('EMAIL').clear().type('email@valido.com').should('have.value', 'email@valido.com')
+    cy.get('#phone').type('123').clear().type('456789').should('have.value', '456789')
+  })
+
+  it('CT008 - Deve preencher o formulário utilizando comando customizado', () => {
+    cy.fillInAllFieldsAndSendTheForm()
+  })
+
+  it('CT009 - Deve selecionar produto "YouTube" pelo texto', () => {
+    cy.get('#product').select('YouTube').should('have.value', 'youtube')
+  })
+
+  it('CT010 - Deve selecionar produto "Mentoria" pelo valor', () => {
+    cy.get('#product').select('Mentoria').should('have.value', 'mentoria')
+  })
+
+  it('CT011 - Deve selecionar produto "Blog" pelo índice', () => {
+    cy.get('#product').select(1).should('have.value', 'blog')
+  })
+
+  it('CT012 - Deve marcar o tipo de atendimento "Ajuda"', () => {
+    cy.get('[value="feedback"]').check().should('be.checked')
+  })
+
+  it('CT013 - Deve marcar todos os tipos de atendimento um por um', () => {
+    cy.get('input[type="radio"]').each(radio => {
+      cy.wrap(radio).check().should('be.checked')
+    })
+  })
+
+  it('CT014 - Deve marcar os dois checkboxes e desmarcar o último', () => {
+    cy.get('[type="checkbox"]').check().should('be.checked').last().uncheck().should('not.be.checked')
+  })
+
+  it('CT015 - Versão alternativa de validação do telefone obrigatório com .check()', () => {
+    cy.get('#firstName').type('Walmyr')
+    cy.get('#lastName').type('Lima')
+    cy.get('#email').type('walmyr@talking.com')
+    cy.get('#phone-checkbox').check()
+    cy.get('button[type="submit"]').click()
+    cy.get('.error').should('be.visible')
+  })
+
+  it('CT016 - Deve realizar upload de arquivo com selectFile()', () => {
     cy.get('#file-upload')
       .selectFile('cypress/fixtures/example.json')
       .should(input => {
@@ -195,8 +117,7 @@ describe('Central de Atendimento ao Cliente TAT', () => {
       })
   })
 
-  // CT017 - UPLOAD VIA DRAG AND DROP
-  it('CT017 - Envia um arquivo via drag and drop', () => {
+  it('CT017 - Deve realizar upload via drag and drop', () => {
     cy.get('#file-upload')
       .selectFile('cypress/fixtures/example.json', { action: 'drag-drop' })
       .should(input => {
@@ -204,32 +125,25 @@ describe('Central de Atendimento ao Cliente TAT', () => {
       })
   })
 
-  // CT018 - UPLOAD DE ARQUIVO COM USO DE FIXTURE COM ALIAS
-  it('CT018 - Seleciona um arquivo utilizando uma fixture com alias', () => {
+  it('CT018 - Deve fazer upload de arquivo utilizando alias de fixture', () => {
     cy.fixture('example.json').as('FileTest')
-    cy.get('#file-upload')
-      .selectFile('@FileTest')
-      .should(input => {
-        expect(input[0].files[0].name).to.equal('example.json')
-      })
+    cy.get('#file-upload').selectFile('@FileTest').should(input => {
+      expect(input[0].files[0].name).to.equal('example.json')
+    })
   })
 
-  // LIDANDO COM OUTRA ABA NO NAVEGADOR
-  it('CT019 - Verifica se as tags "target" estão presentes e definidas como "_blank"', () => {
+  it('CT019 - Deve validar se link de política de privacidade tem target="_blank"', () => {
     cy.contains('a', 'Política de Privacidade')
       .should('have.attr', 'href', 'privacy.html')
       .and('have.attr', 'target', '_blank')
   })
 
-  it('CT019 - Acessa a página de política de privacidade removendo o target e clicando', () => {
-    cy.contains('a', 'Política de Privacidade')
-      .invoke('removeAttr', 'target')
-      .click()
-
+  it('CT020 - Deve acessar página de política de privacidade removendo o target', () => {
+    cy.contains('a', 'Política de Privacidade').invoke('removeAttr', 'target').click()
     cy.contains('h1', 'CAC TAT - Política de Privacidade').should('be.visible')
   })
-  
 })
+
 
 /* ===================================
    COMENTÁRIOS ADICIONAIS E EXPLICATIVOS
