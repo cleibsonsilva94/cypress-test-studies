@@ -43,7 +43,7 @@ describe('Central de Atendimento ao Cliente TAT - Meus Testes', () => {
     cy.get('.success').should('not.be.visible')
   })
 
-  it.only('CT003 - Deve preencher campos utilizando o método contains', () => {
+  it('CT003 - Deve preencher campos utilizando o método contains', () => {
     cy.clock()
     cy.contains('label', 'Nome').type('Walmyr')
     cy.contains('label', 'Sobrenome').type('Lima e Silva Filho')
@@ -82,7 +82,7 @@ describe('Central de Atendimento ao Cliente TAT - Meus Testes', () => {
   })
 
   Cypress._.times(2, () => {
-  it.only('CT008 - Deve preencher o formulário utilizando comando customizado', () => {
+  it('CT008 - Deve preencher o formulário utilizando comando customizado', () => {
     cy.clock()
     cy.fillInAllFieldsAndSendTheForm()
     cy.tick(3000)
@@ -159,6 +159,23 @@ describe('Central de Atendimento ao Cliente TAT - Meus Testes', () => {
     cy.contains('a', 'Política de Privacidade').invoke('removeAttr', 'target').click()
     cy.contains('h1', 'CAC TAT - Política de Privacidade').should('be.visible')
   })
+  it.only('CT021 - Deve exibir e ocultar as mensagens de sucesso e erro usando .invoke()', () => {
+    cy.get('.success')
+      .should('not.be.visible')
+      .invoke('show')
+      .should('be.visible')
+      .and('contain', 'Mensagem enviada com sucesso.')
+      .invoke('hide')
+      .should('not.be.visible')
+    cy.get('.error')
+      .should('not.be.visible')
+      .invoke('show')
+      .should('be.visible')
+      .and('contain', 'Valide os campos obrigatórios!')
+      .invoke('hide')
+      .should('not.be.visible')
+  })
+  
 })
 
 /* ===================================
