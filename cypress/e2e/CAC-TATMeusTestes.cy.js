@@ -81,13 +81,14 @@ describe('Central de Atendimento ao Cliente TAT - Meus Testes', () => {
     cy.get('#phone').type('123').clear().type('456789').should('have.value', '456789')
   })
 
-  it('CT008 - Deve preencher o formulário utilizando comando customizado', () => {
+  Cypress._.times(2, () => {
+  it.only('CT008 - Deve preencher o formulário utilizando comando customizado', () => {
     cy.clock()
     cy.fillInAllFieldsAndSendTheForm()
     cy.tick(3000)
     cy.get('.success').should('not.be.visible')
   })
-
+})
   it('CT009 - Deve selecionar produto "YouTube" pelo texto', () => {
     cy.get('#product').select('YouTube').should('have.value', 'youtube')
   })
