@@ -22,9 +22,13 @@ describe('Central de Atendimento ao Cliente TAT - Meus Testes', () => {
 
     cy.get('.button').click()
     cy.get('.success').should('be.visible')
+
+    cy.tick(3000)
+    cy.get('.success').should('not.be.visible')
   })
 
   it('CT002 - Deve preencher mensagem longa com delay zero e exibir mensagem de sucesso', () => {
+    cy.clock()
     cy.get('#firstName').type('Walmyr')
     cy.get('#lastName').type('Lima e Silva Filho')
     cy.get('#email').type('walmyr@talkingabouttesting.com')
@@ -34,16 +38,20 @@ describe('Central de Atendimento ao Cliente TAT - Meus Testes', () => {
     )
     cy.get('button[type="submit"]').click()
     cy.get('.success').should('be.visible')
+
+    cy.tick(3000)
+    cy.get('.success').should('not.be.visible')
   })
 
   it.only('CT003 - Deve preencher campos utilizando o método contains', () => {
+    cy.clock()
     cy.contains('label', 'Nome').type('Walmyr')
     cy.contains('label', 'Sobrenome').type('Lima e Silva Filho')
     cy.contains('label', 'E-mail').type('walmyr@talkingabouttesting.com')
     cy.contains('label', 'Algum elogio ou feedback para nós?').type('Feedback importante.', { delay: 0 })
     cy.contains('button', 'Enviar').click()
-    cy.clock()
     cy.get('.success').should('be.visible')
+
     cy.tick(3000)
     cy.get('.success').should('not.be.visible')
   })
@@ -74,7 +82,10 @@ describe('Central de Atendimento ao Cliente TAT - Meus Testes', () => {
   })
 
   it('CT008 - Deve preencher o formulário utilizando comando customizado', () => {
+    cy.clock()
     cy.fillInAllFieldsAndSendTheForm()
+    cy.tick(3000)
+    cy.get('.success').should('not.be.visible')
   })
 
   it('CT009 - Deve selecionar produto "YouTube" pelo texto', () => {
@@ -130,9 +141,11 @@ describe('Central de Atendimento ao Cliente TAT - Meus Testes', () => {
 
   it('CT018 - Deve fazer upload de arquivo utilizando alias de fixture', () => {
     cy.fixture('example.json').as('FileTest')
-    cy.get('#file-upload').selectFile('@FileTest').should(input => {
-      expect(input[0].files[0].name).to.equal('example.json')
-    })
+    cy.get('#file-upload')
+      .selectFile('@FileTest')
+      .should(input => {
+        expect(input[0].files[0].name).to.equal('example.json')
+      })
   })
 
   it('CT019 - Deve validar se link de política de privacidade tem target="_blank"', () => {
@@ -147,7 +160,6 @@ describe('Central de Atendimento ao Cliente TAT - Meus Testes', () => {
   })
 })
 
-
 /* ===================================
    COMENTÁRIOS ADICIONAIS E EXPLICATIVOS
 ====================================== */
@@ -160,7 +172,7 @@ describe('Central de Atendimento ao Cliente TAT - Meus Testes', () => {
 // Basta referenciar o arquivo que contém os comandos dentro do `e2e.js` no momento da criação.
 // A ideia e o princípio são os mesmos do PageObject, porém com a vantagem de deixar o código mais limpo.
 
-/* 
+/*
 Sugestão de reestruturação para o CT007:
 Separar as ações por campo melhora a clareza do teste. Também é possível criar uma função
 reutilizável que recebe o seletor e dois valores (para preencher, apagar e preencher de novo).
