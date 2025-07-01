@@ -159,7 +159,7 @@ describe('Central de Atendimento ao Cliente TAT - Meus Testes', () => {
     cy.contains('a', 'Política de Privacidade').invoke('removeAttr', 'target').click()
     cy.contains('h1', 'CAC TAT - Política de Privacidade').should('be.visible')
   })
-  it.only('CT021 - Deve exibir e ocultar as mensagens de sucesso e erro usando .invoke()', () => {
+  it('CT021 - Deve exibir e ocultar as mensagens de sucesso e erro usando .invoke()', () => {
     cy.get('.success')
       .should('not.be.visible')
       .invoke('show')
@@ -175,7 +175,13 @@ describe('Central de Atendimento ao Cliente TAT - Meus Testes', () => {
       .invoke('hide')
       .should('not.be.visible')
   })
-  
+
+  it.only('CT022 - Deve preenche o campo da área de texto usando o comando invoke.', () => {
+    cy.get('#open-text-area')
+    .invoke('val', 'um texto qualquer')
+    .should('have.value', 'um texto qualquer')
+  })
+
 })
 
 /* ===================================
