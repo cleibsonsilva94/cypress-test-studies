@@ -176,14 +176,23 @@ describe('Central de Atendimento ao Cliente TAT - Meus Testes', () => {
       .should('not.be.visible')
   })
 
-  it.only('CT022 - Deve preenche o campo da área de texto usando o comando invoke.', () => {
+  it('CT022 - Deve preenche o campo da área de texto usando o comando invoke.', () => {
     cy.get('#open-text-area')
     .invoke('val', 'um texto qualquer')
     .should('have.value', 'um texto qualquer')
   })
 
-})
-
+  it.only('CT022 - FGaz uma requisição HTTP.', () => {
+    cy.request({
+      method: 'GET',
+      url: 'https://cac-tat-v3.s3.eu-central-1.amazonaws.com/index.html'
+    }).then((response) => {
+      expect(response.status).to.equal(200);
+      expect(response.statusText).to.equal('OK');
+      expect(response.body).to.string('CAC TAT');
+      })
+    })
+  })
 /* ===================================
    COMENTÁRIOS ADICIONAIS E EXPLICATIVOS
 ====================================== */
