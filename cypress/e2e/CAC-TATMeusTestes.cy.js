@@ -178,8 +178,7 @@ describe('Central de Atendimento ao Cliente TAT - Meus Testes', () => {
       .invoke('val', 'um texto qualquer')
       .should('have.value', 'um texto qualquer')
   })
-
-  it.only('CT024 - Faz uma requisição HTTP.', () => {
+  it('CT024 - Faz uma requisição HTTP.', () => {
     cy.request('https://cac-tat-v3.s3.eu-central-1.amazonaws.com/index.html')
       .as('getRequest')
       .its('status')
@@ -190,6 +189,11 @@ describe('Central de Atendimento ao Cliente TAT - Meus Testes', () => {
     cy.get('@getRequest')
       .its('body')
       .should('include', 'CAC TAT')
+  })
+  it.only('CT025 - Achando o gato.', () => {
+    cy.get('#cat')
+      .invoke('show')
+      .should('be.visible')
   })
 })
 /* ===================================
