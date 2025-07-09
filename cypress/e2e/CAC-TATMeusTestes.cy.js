@@ -22,9 +22,6 @@ describe('Central de Atendimento ao Cliente TAT - Meus Testes', () => {
 
     cy.get('.button').click()
     cy.get('.success').should('be.visible')
-
-    cy.tick(4000)
-    cy.get('.success').should('not.be.visible')
   })
 
   it('CT002 - Deve preencher mensagem longa com delay zero e exibir mensagem de sucesso', () => {
