@@ -82,13 +82,13 @@ describe('Central de Atendimento ao Cliente TAT - Meus Testes', () => {
   })
 
   Cypress._.times(2, () => {
-  it('CT008 - Deve preencher o formulário utilizando comando customizado', () => {
-    cy.clock()
-    cy.fillInAllFieldsAndSendTheForm()
-    cy.tick(3000)
-    cy.get('.success').should('not.be.visible')
+    it('CT008 - Deve preencher o formulário utilizando comando customizado', () => {
+      cy.clock()
+      cy.fillInAllFieldsAndSendTheForm()
+      cy.tick(3000)
+      cy.get('.success').should('not.be.visible')
+    })
   })
-})
   it('CT009 - Deve selecionar produto "YouTube" pelo texto', () => {
     cy.get('#product').select('YouTube').should('have.value', 'youtube')
   })
@@ -178,21 +178,23 @@ describe('Central de Atendimento ao Cliente TAT - Meus Testes', () => {
 
   it('CT022 - Deve preenche o campo da área de texto usando o comando invoke.', () => {
     cy.get('#open-text-area')
-    .invoke('val', 'um texto qualquer')
-    .should('have.value', 'um texto qualquer')
+      .invoke('val', 'um texto qualquer')
+      .should('have.value', 'um texto qualquer')
   })
 
-  it.only('CT022 - FGaz uma requisição HTTP.', () => {
-    cy.request({
-      method: 'GET',
-      url: 'https://cac-tat-v3.s3.eu-central-1.amazonaws.com/index.html'
-    }).then((response) => {
-      expect(response.status).to.equal(200);
-      expect(response.statusText).to.equal('OK');
-      expect(response.body).to.string('CAC TAT');
-      })
-    })
+  it('CT024 - Faz uma requisição HTTP.', () => {
+    cy.request('https://cac-tat-v3.s3.eu-central-1.amazonaws.com/index.html')
+      .as('getRequest')
+      .its('status')
+      .should('be.equal', 200)
+    cy.get('@getRequest')
+      .its('statusText')
+      .should('be.equal', 'OK')
+    cy.get('@getRequest')
+      .its('body')
+      .should('include', 'CAC TAT')
   })
+})
 /* ===================================
    COMENTÁRIOS ADICIONAIS E EXPLICATIVOS
 ====================================== */
