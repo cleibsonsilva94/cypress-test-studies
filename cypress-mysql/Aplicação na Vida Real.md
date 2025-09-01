@@ -43,7 +43,7 @@ describe('PostgreSQL', () => {
         expect(name).to.equal('Michael Jackson')
         expect(age).to.equal(50)
         expect(designation).to.equal('Singer')
-        expect(salary).to.equal(100000)
+        expect(salary).to.equal(1000000)
       })
   })
 
